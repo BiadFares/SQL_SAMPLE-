@@ -1,0 +1,88 @@
+Data Analyst Portfolio\
+
+____________Inspecting data___________________
+
+SELECT * FROM Portfolio. dbo.Sales_Sample
+SELECT * FROM  Portfoliodb.dbo.sales_data_sample;
+
+
+___________Checking Unique Values_____________________
+
+SELECT DISTINCT (STATUS) FROM  Portfoliodb.dbo.sales_data_sample;
+SELECT DISTINCT (YEAR_ID) FROM  Portfoliodb.dbo.sales_data_sample;
+SELECT DISTINCT (PRODUCTLINE) FROM  Portfoliodb.dbo.sales_data_sample;
+SELECT DISTINCT (COUNTRY) FROM  Portfoliodb.dbo.sales_data_sample;
+SELECT DISTINCT (DEALSIZE) FROM  Portfoliodb.dbo.sales_data_sample;
+SELECT DISTINCT (TERRITORY) FROM  Portfoliodb.dbo.sales_data_sample;
+
+______________ Analysis___________________________
+
+1- Sales by Productline (let's see which products sell the most )
+  Syntax: 
+SELECT 
+  PRODUCT LINE, SUM(SALES) AS [Total Sales]
+FROM Portfoliodb.dbo.sales_data_sample
+GROUP BY PRODUCT LINE
+ORDER BY [Total Sales] DESC 
+* classic cars is the best product line they have 
+
+2- Checking the sales Across the year 
+  Syntax :
+   SELECT 
+  YEAR_ID, SUM(SALES) AS [Total Sales]
+FROM Portfoliodb. dbo.sales_data_sample
+GROUP BY YEAR_ID
+ORDER BY [Total Sales] DESC 
+* It appears that 2004 is the year that they made the Most Sales
+
+SELECT DISTINCT (MONTH_ID) FROM  Portfoliodb. dbo.sales_data_sample
+where YEAR_ID = 2005
+It appears that they operated just for 5 months
+now we see the reason why the sales in 2005 is pretty low 
+
+3-Checking the deal size
+ Syntax:
+  SELECT 
+  DEAL SIZE, SUM(SALES) AS [Total Sales]
+FROM Portfoliodb. dbo.sales_data_sample
+GROUP BY DEAL SIZE
+ORDER BY [Total Sales] DESC 
+* Apparently the medium deals sized are the ones that generate the most revenue
+ 
+4-Best month for sales Per Year
+What was the best month for sales in a specific year? How much was earned that month?
+Syntax:
+SELECT 
+    MONTH_ID, 
+	SUM (SALES) AS [Total Sales],
+	COUNT(ORDER NUMBER) AS [Frequency]
+FROM Portfoliodb.dbo.sales_data_sample
+where YEAR_ID = 2003 (change the year to see the rest)
+GROUP BY MONTH_ID
+ORDER BY  [Total Sales] DESC 
+
+5-what product line sells Most in Best Month?
+ Syntax:
+ SELECT 
+    MONTH_ID, PRODUCT LINE,
+	SUM (SALES) AS [Total Sales],
+	COUNT(ORDER NUMBER) AS [Frequency]
+FROM Portfoliodb.dbo.sales_data_sample
+where YEAR_ID = 2003 AND MONTH_ID = 11
+GROUP BY MONTH_ID,PRODUCT LINE
+ORDER BY  [Total Sales] DESC 
+
+6- Who is the best customer (this could be answered with RFM)
+   Syntax:
+   SELECT 
+ CUSTOMER NAME,
+SUM(SALES) AS MonetaryValue,
+AVG(SALES) AS Avgmonetaryvalue,
+Count(ORDER NUMBER) AS Frequency,
+MAX(order date) AS last_order_date,
+(SELECT MAX(ORDERDATE) FROM Portfoliodb.dbo.sales_data_sample)  Max_order_date,
+DATEDIFF(DD,MAX(ORDERDATE),(SELECT MAX(ORDERDATE) FROM Portfoliodb.dbo.sales_data_sample))  Recency
+FROM Portfoliodb.dbo.sales_data_sample
+GROUP BY CUSTOMER NAME
+
+
