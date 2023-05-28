@@ -24,7 +24,7 @@ SELECT
 FROM Portfoliodb.dbo.sales_data_sample
 GROUP BY PRODUCT LINE
 ORDER BY [Total Sales] DESC 
-* classic cars is the best product line they have 
+                                        * classic cars is the best product line they have 
 
 2- Checking the sales Across the year 
   Syntax :
@@ -33,12 +33,12 @@ ORDER BY [Total Sales] DESC
 FROM Portfoliodb. dbo.sales_data_sample
 GROUP BY YEAR_ID
 ORDER BY [Total Sales] DESC 
-* It appears that 2004 is the year that they made the Most Sales
+                                       * It appears that 2004 is the year that they made the Most Sales
 
 SELECT DISTINCT (MONTH_ID) FROM  Portfoliodb. dbo.sales_data_sample
 where YEAR_ID = 2005
 It appears that they operated just for 5 months
-now we see the reason why the sales in 2005 is pretty low 
+                                      * now we see the reason why the sales in 2005 is pretty low 
 
 3-Checking the deal size
  Syntax:
@@ -47,7 +47,7 @@ now we see the reason why the sales in 2005 is pretty low
 FROM Portfoliodb. dbo.sales_data_sample
 GROUP BY DEAL SIZE
 ORDER BY [Total Sales] DESC 
-* Apparently the medium deals sized are the ones that generate the most revenue
+                                    * Apparently the medium deals sized are the ones that generate the most revenue
  
 4-Best month for sales Per Year
 What was the best month for sales in a specific year? How much was earned that month?
